@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 import { money, type Producto } from '../data/products'
 import { useQuote } from '../context/QuoteContext'
 
@@ -8,7 +10,7 @@ export default function ProductCard({ p }: { p: Producto }) {
   return (
     <div className="border border-ink/[.14] bg-white flex flex-col hover:border-accent transition-colors">
       <Link
-        to={`/producto/${p.id}`}
+        href={`/producto/${p.id}`}
         className="relative h-40 bg-surface flex items-center justify-center border-b border-ink/10"
       >
         <div className="text-[10px] font-medium tracking-[.14em] uppercase text-ink/30 text-center leading-relaxed">
@@ -30,7 +32,7 @@ export default function ProductCard({ p }: { p: Producto }) {
           {p.marca}
         </div>
         <Link
-          to={`/producto/${p.id}`}
+          href={`/producto/${p.id}`}
           className="text-[13.5px] font-bold leading-tight mb-2.5 min-h-[52px] text-ink hover:text-accent-dark transition-colors"
         >
           {p.nombre}
@@ -47,7 +49,7 @@ export default function ProductCard({ p }: { p: Producto }) {
               Cotizar
             </button>
             <Link
-              to={`/producto/${p.id}`}
+              href={`/producto/${p.id}`}
               className="border border-ink/25 text-ink font-heading text-[10.5px] font-bold tracking-[.08em] uppercase px-3 py-[11px] hover:border-accent transition-colors text-center"
             >
               Ficha

@@ -1,5 +1,10 @@
-import { Link } from 'react-router-dom'
-import type { SolucionId } from '../data/products'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import type { SolucionId } from '@/data/products'
+
+export const metadata: Metadata = {
+  title: 'Soluciones | Inversiones ICR',
+}
 
 interface Problema {
   pregunta: string
@@ -93,7 +98,7 @@ export default function Soluciones() {
               <div className="text-sm font-bold text-ink mb-2">{p.solucionNombre}</div>
               <p className="text-[12.5px] text-ink/65 leading-relaxed mb-4">{p.recomendacion}</p>
               <Link
-                to={`/catalogo?solucion=${p.solucionId}`}
+                href={`/catalogo?solucion=${p.solucionId}`}
                 className="inline-block border-0 bg-ink text-white font-heading text-[11px] font-bold tracking-[.1em] uppercase px-4 py-3 hover:bg-accent-dark transition-colors"
               >
                 Ver productos para esta solución →
@@ -114,7 +119,7 @@ export default function Soluciones() {
           </p>
         </div>
         <Link
-          to="/cotizacion"
+          href="/cotizacion"
           className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
         >
           Hablar con ingeniería

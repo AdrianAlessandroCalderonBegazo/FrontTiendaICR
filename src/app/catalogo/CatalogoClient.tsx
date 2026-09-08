@@ -1,7 +1,10 @@
+'use client'
+
 import { useMemo, useState } from 'react'
-import { useSearchParams, Link } from 'react-router-dom'
-import ProductCard from '../components/ProductCard'
-import { CATEGORIAS_COMPONENTE, MARCAS, PRODUCTOS, SOLUCIONES, type SolucionId } from '../data/products'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import ProductCard from '@/components/ProductCard'
+import { CATEGORIAS_COMPONENTE, MARCAS, PRODUCTOS, SOLUCIONES, type SolucionId } from '@/data/products'
 
 const APLICACIONES = [
   { id: 'b2b', label: 'Industrial / B2B' },
@@ -9,8 +12,10 @@ const APLICACIONES = [
   { id: 'offgrid', label: 'Off-grid' },
 ]
 
-export default function Catalogo() {
-  const [searchParams, setSearchParams] = useSearchParams()
+export default function CatalogoClient() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
   const solucion = (searchParams.get('solucion') as SolucionId | null) ?? null
   const q = searchParams.get('q') ?? ''
 
@@ -25,10 +30,10 @@ export default function Catalogo() {
   }
 
   const setSolucion = (id: SolucionId | null) => {
-    const next = new URLSearchParams(searchParams)
+    const next = new URLSearchParams(searchParams.toString())
     if (id) next.set('solucion', id)
     else next.delete('solucion')
-    setSearchParams(next)
+    router.push(`${pathname}?${next.toString()}`)
   }
 
   const productos = useMemo(() => {
@@ -135,7 +140,7 @@ export default function Catalogo() {
       </div>
 
       <div className="pb-12 text-center">
-        <Link to="/cotizacion" className="text-[11px] font-bold tracking-[.1em] uppercase text-accent-dark">
+        <Link href="/cotizacion" className="text-[11px] font-bold tracking-[.1em] uppercase text-accent-dark">
           ¿Necesitas un dimensionamiento a medida? Solicita cotización técnica →
         </Link>
       </div>

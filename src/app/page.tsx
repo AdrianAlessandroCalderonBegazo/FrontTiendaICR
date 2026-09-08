@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
-import PromoSlider, { type Slide } from '../components/PromoSlider'
-import ProductCard from '../components/ProductCard'
-import { PRODUCTOS } from '../data/products'
-import instPanel from '../assets/instPanel.png'
-import tablero from '../assets/tablero.jpg'
-import almacen from '../assets/almacen.jpg'
+import Link from 'next/link'
+import PromoSlider, { type Slide } from '@/components/PromoSlider'
+import ProductCard from '@/components/ProductCard'
+import { PRODUCTOS } from '@/data/products'
+import instPanel from '@/assets/instPanel.png'
+import tablero from '@/assets/tablero.jpg'
+import almacen from '@/assets/almacen.jpg'
 
 const SLIDES: Slide[] = [
   {
@@ -13,7 +13,7 @@ const SLIDES: Slide[] = [
     highlight: 'para tu proyecto',
     desc: 'Alta calidad, garantía de fábrica y respaldo técnico local. Cotiza al 945 103 227.',
     cta: { label: 'Ver catálogo técnico', to: '/catalogo?cat=Panel solar' },
-    bg: `url(${instPanel})`,
+    bg: `url(${instPanel.src})`,
   },
   {
     kicker: 'Promoción · Almacenamiento',
@@ -21,7 +21,7 @@ const SLIDES: Slide[] = [
     highlight: '10 años de garantía',
     desc: 'Bancos LiFePO4 para respaldo de cargas críticas ante cortes de red.',
     cta: { label: 'Ver baterías', to: '/catalogo?cat=Batería' },
-    bg: `url(${almacen})`,
+    bg: `url(${almacen.src})`,
   },
   {
     kicker: 'Ingeniería ICR',
@@ -29,15 +29,13 @@ const SLIDES: Slide[] = [
     highlight: 'y respaldo postventa',
     desc: 'Un solo responsable técnico desde el dimensionamiento hasta la operación.',
     cta: { label: 'Solicitar cotización', to: '/cotizacion' },
-    bg: `url(${tablero})`,
+    bg: `url(${tablero.src})`,
   },
 ]
 
 export default function Home() {
   const destacados = PRODUCTOS.filter((p) => p.destacado).slice(0, 4)
-  const masVendidos = [...PRODUCTOS]
-    .sort((a, b) => (b.vendidos ?? 0) - (a.vendidos ?? 0))
-    .slice(0, 4)
+  const masVendidos = [...PRODUCTOS].sort((a, b) => (b.vendidos ?? 0) - (a.vendidos ?? 0)).slice(0, 4)
 
   return (
     <div>
@@ -46,7 +44,7 @@ export default function Home() {
       <section className="px-4 sm:px-6 py-14">
         <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
           <h2 className="kicker text-ink/55 m-0">Productos destacados</h2>
-          <Link to="/catalogo" className="text-[11px] font-bold tracking-[.1em] uppercase hover:text-accent-dark">
+          <Link href="/catalogo" className="text-[11px] font-bold tracking-[.1em] uppercase hover:text-accent-dark">
             Ver todo el catálogo →
           </Link>
         </div>
@@ -82,7 +80,7 @@ export default function Home() {
           </p>
         </div>
         <Link
-          to="/catalogo"
+          href="/catalogo"
           className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
         >
           Ir al catálogo completo

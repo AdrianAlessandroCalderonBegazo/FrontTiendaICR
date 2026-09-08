@@ -1,11 +1,15 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import logo from '../assets/logo.png'
 import { useQuote } from '../context/QuoteContext'
 import { SOLUCIONES } from '../data/products'
 
 const NAV_LINKS = [
-  { to: '/', label: 'Inicio', end: true },
+  { to: '/', label: 'Inicio' },
   { to: '/catalogo', label: 'Tienda' },
   { to: '/soluciones', label: 'Soluciones' },
   { to: '/proyectos', label: 'Proyectos' },
@@ -13,12 +17,13 @@ const NAV_LINKS = [
 
 export default function Header() {
   const { count } = useQuote()
-  const navigate = useNavigate()
+  const router = useRouter()
+  const pathname = usePathname()
   const [query, setQuery] = useState('')
 
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    navigate(query.trim() ? `/catalogo?q=${encodeURIComponent(query.trim())}` : '/catalogo')
+    router.push(query.trim() ? `/catalogo?q=${encodeURIComponent(query.trim())}` : '/catalogo')
   }
 
   return (
@@ -35,23 +40,23 @@ export default function Header() {
 
       {/* header */}
       <div className="border-b border-ink/10 px-4 sm:px-6 py-4 flex flex-wrap gap-5 items-center justify-between">
-        <NavLink to="/" className="flex items-center shrink-0">
-          <img src={logo} alt="ICR Inversiones" className="h-7 block" />
-        </NavLink>
+        <Link href="/" className="flex items-center shrink-0">
+          <Image src={logo} alt="ICR Inversiones" className="h-7 w-auto block" priority />
+        </Link>
 
         <nav className="flex flex-wrap gap-4 sm:gap-[22px] text-xs font-medium tracking-[.08em] uppercase order-3 w-full sm:order-none sm:w-auto">
-          {NAV_LINKS.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className={({ isActive }) =>
-                isActive ? 'text-accent' : 'text-ink hover:text-accent transition-colors'
-              }
-            >
-              {l.label}
-            </NavLink>
-          ))}
+          {NAV_LINKS.map((l) => {
+            const isActive = l.to === '/' ? pathname === '/' : pathname.startsWith(l.to)
+            return (
+              <Link
+                key={l.to}
+                href={l.to}
+                className={isActive ? 'text-accent' : 'text-ink hover:text-accent transition-colors'}
+              >
+                {l.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="flex gap-2.5 items-center">
@@ -70,26 +75,26 @@ export default function Header() {
               className="text-xs text-ink placeholder:text-ink/40 outline-none bg-transparent w-full"
             />
           </form>
-          <NavLink
-            to="/cotizacion"
+          <Link
+            href="/cotizacion"
             className="border-0 bg-ink text-white font-heading text-[11px] font-bold tracking-[.1em] uppercase px-4 py-[11px] flex gap-2 items-center hover:bg-accent-dark transition-colors"
           >
             Cotización
             <span className="bg-accent text-ink font-black px-1.5 min-w-[16px] text-center">{count}</span>
-          </NavLink>
+          </Link>
         </div>
       </div>
 
       {/* solution bar */}
       <div className="bg-surface border-b border-ink/10 px-4 sm:px-6 flex flex-wrap overflow-x-auto">
         {SOLUCIONES.map((s) => (
-          <NavLink
+          <Link
             key={s.id}
-            to={`/catalogo?solucion=${s.id}`}
+            href={`/catalogo?solucion=${s.id}`}
             className="text-[11px] font-medium tracking-[.1em] uppercase text-ink py-[13px] pr-0 mr-[18px] border-b-2 border-transparent hover:border-accent whitespace-nowrap transition-colors"
           >
             {s.nombre}
-          </NavLink>
+          </Link>
         ))}
       </div>
     </header>

@@ -1,7 +1,10 @@
+'use client'
+
 import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { PRODUCTOS, money, productoPorId } from '../data/products'
-import { useQuote } from '../context/QuoteContext'
+import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
+import { PRODUCTOS, money, productoPorId } from '@/data/products'
+import { useQuote } from '@/context/QuoteContext'
 
 const GARANTIAS = [
   'Garantía de fábrica con respaldo local de ICR',
@@ -18,12 +21,12 @@ const TABS = [
 type TabId = (typeof TABS)[number]['id']
 
 export default function Producto() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const params = useParams<{ id: string }>()
+  const router = useRouter()
   const { add } = useQuote()
   const [tab, setTab] = useState<TabId>('ficha')
 
-  const actual = productoPorId(id ?? '') ?? PRODUCTOS[0]
+  const actual = productoPorId(params.id ?? '') ?? PRODUCTOS[0]
 
   const tabData: Record<TabId, [string, string][]> = {
     ficha: actual.specs,
@@ -46,7 +49,7 @@ export default function Producto() {
   return (
     <div className="px-4 sm:px-6 pt-6 pb-16">
       <div className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45 mb-5">
-        <Link to="/catalogo">Tienda</Link> / {actual.cat} / <span className="text-ink">{actual.marca}</span>
+        <Link href="/catalogo">Tienda</Link> / {actual.cat} / <span className="text-ink">{actual.marca}</span>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8 items-start">
@@ -96,7 +99,7 @@ export default function Producto() {
             <button
               onClick={() => {
                 add(actual.id)
-                navigate('/cotizacion')
+                router.push('/cotizacion')
               }}
               className="border-0 bg-ink text-white font-heading text-xs font-black tracking-[.1em] uppercase px-6 py-4 hover:bg-accent-dark transition-colors"
             >
@@ -151,7 +154,7 @@ export default function Producto() {
           {relacionados.map((p) => (
             <Link
               key={p.id}
-              to={`/producto/${p.id}`}
+              href={`/producto/${p.id}`}
               className="border border-ink/[.14] p-4 bg-white hover:border-accent transition-colors block"
             >
               <div className="h-24 bg-surface flex items-center justify-center text-[9.5px] tracking-[.12em] uppercase text-ink/30 mb-3.5">

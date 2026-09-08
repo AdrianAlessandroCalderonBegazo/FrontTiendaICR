@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom'
-import tablero from '../assets/tablero.jpg'
-import instEquipo from '../assets/instEquipo.jpg'
-import instPanel from '../assets/instPanel.png'
-import mina from '../assets/mina.jpg'
-import almacen from '../assets/almacen.jpg'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import tablero from '@/assets/tablero.jpg'
+import instEquipo from '@/assets/instEquipo.jpg'
+import instPanel from '@/assets/instPanel.png'
+import mina from '@/assets/mina.jpg'
+import almacen from '@/assets/almacen.jpg'
+
+export const metadata: Metadata = {
+  title: 'Proyectos ejecutados | Inversiones ICR',
+}
 
 const CIFRAS = [
   { valor: '12 años', etiqueta: 'Ejecutando proyectos' },
@@ -87,7 +92,7 @@ export default function Proyectos() {
           <div key={p.nombre} className="border border-ink/[.14] bg-white">
             <div
               className="h-[190px] bg-cover bg-center"
-              style={{ backgroundImage: `url(${p.img})` }}
+              style={{ backgroundImage: `url(${p.img.src})` }}
               role="img"
               aria-label={p.nombre}
             />
@@ -113,7 +118,7 @@ export default function Proyectos() {
           </p>
         </div>
         <Link
-          to="/cotizacion"
+          href="/cotizacion"
           className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
         >
           Solicitar cotización técnica

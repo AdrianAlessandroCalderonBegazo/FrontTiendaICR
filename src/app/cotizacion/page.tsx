@@ -1,6 +1,8 @@
+'use client'
+
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useQuote } from '../context/QuoteContext'
+import Link from 'next/link'
+import { useQuote } from '@/context/QuoteContext'
 
 const CAMPOS = [
   { key: 'empresa', label: 'Empresa o nombre', ph: 'Inversiones ejemplo S.A.C.' },
@@ -48,7 +50,7 @@ export default function Cotizacion() {
                   <div className="text-[10.5px] font-bold tracking-[.1em] uppercase text-accent-dark mb-1">
                     {r.marca} · {r.sku}
                   </div>
-                  <Link to={`/producto/${r.id}`} className="text-[13.5px] font-bold leading-tight block text-ink">
+                  <Link href={`/producto/${r.id}`} className="text-[13.5px] font-bold leading-tight block text-ink">
                     {r.nombre}
                   </Link>
                   <div className="text-[11px] text-ink/50 mt-1">{r.spec}</div>
@@ -78,7 +80,7 @@ export default function Cotizacion() {
                 Aún no has agregado referencias.
                 <div className="mt-4">
                   <Link
-                    to="/catalogo"
+                    href="/catalogo"
                     className="inline-block border border-ink/25 bg-transparent text-ink font-heading text-[11px] font-bold tracking-[.1em] uppercase px-5 py-3"
                   >
                     Ir al catálogo

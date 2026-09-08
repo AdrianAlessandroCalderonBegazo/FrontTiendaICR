@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import Image from 'next/image'
+import Link from 'next/link'
 import logo from '../assets/logo.png'
 
 const FOOTER_COLS: { titulo: string; links: { label: string; to: string }[] }[] = [
@@ -37,7 +38,7 @@ export default function Footer() {
     <footer id="contacto" className="bg-surface border-t border-ink/10 px-4 sm:px-6 pt-11 pb-6">
       <div className="grid grid-cols-2 sm:grid-cols-[minmax(200px,1.4fr)_repeat(3,minmax(160px,1fr))] gap-8">
         <div className="col-span-2 sm:col-span-1">
-          <img src={logo} alt="ICR Inversiones" className="h-[26px] block mb-4" />
+          <Image src={logo} alt="ICR Inversiones" className="h-[26px] w-auto block mb-4" />
           <p className="text-[13px] leading-relaxed text-ink/65 mb-3.5 max-w-[280px]">
             Energía confiable, soluciones inteligentes. Ingeniería, componentes y respaldo para proyectos
             energéticos.
@@ -57,7 +58,7 @@ export default function Footer() {
               {col.links.map((l) => (
                 <Link
                   key={l.label}
-                  to={l.to}
+                  href={l.to}
                   className="text-[12.5px] text-ink/65 hover:text-accent-dark transition-colors"
                 >
                   {l.label}

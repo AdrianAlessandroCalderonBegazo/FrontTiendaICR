@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 export interface Slide {
   kicker: string
@@ -52,7 +54,7 @@ export default function PromoSlider({ slides }: { slides: Slide[] }) {
         </h1>
         <p className="text-base leading-relaxed text-white/80 max-w-[520px] mb-7">{s.desc}</p>
         <Link
-          to={s.cta.to}
+          href={s.cta.to}
           className="inline-block border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-6 py-4 hover:bg-accent-2 transition-colors"
         >
           {s.cta.label}
