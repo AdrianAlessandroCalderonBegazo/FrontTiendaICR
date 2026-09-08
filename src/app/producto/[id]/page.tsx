@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { PRODUCTOS, money, productoPorId } from '@/data/products'
 import { useQuote } from '@/context/QuoteContext'
+import Container from '@/components/Container'
 
 const GARANTIAS = [
   'Garantía de fábrica con respaldo local de ICR',
@@ -47,7 +48,7 @@ export default function Producto() {
   const relacionados = PRODUCTOS.filter((p) => p.id !== actual.id).slice(0, 3)
 
   return (
-    <div className="px-4 sm:px-6 pt-6 pb-16">
+    <Container className="pt-6 pb-16">
       <div className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45 mb-5">
         <Link href="/catalogo">Tienda</Link> / {actual.cat} / <span className="text-ink">{actual.marca}</span>
       </div>
@@ -169,6 +170,6 @@ export default function Producto() {
           ))}
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

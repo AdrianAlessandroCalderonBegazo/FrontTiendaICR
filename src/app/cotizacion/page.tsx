@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useQuote } from '@/context/QuoteContext'
+import Container from '@/components/Container'
 
 const CAMPOS = [
   { key: 'empresa', label: 'Empresa o nombre', ph: 'Inversiones ejemplo S.A.C.' },
@@ -24,7 +25,7 @@ export default function Cotizacion() {
   }
 
   return (
-    <div className="px-4 sm:px-6 pt-6 pb-16">
+    <Container className="pt-6 pb-16">
       <div className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45 mb-4">
         Inicio / <span className="text-ink">Solicitud de cotización</span>
       </div>
@@ -165,6 +166,6 @@ export default function Cotizacion() {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

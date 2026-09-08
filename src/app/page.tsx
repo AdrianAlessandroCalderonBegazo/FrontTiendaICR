@@ -1,20 +1,14 @@
 import Link from 'next/link'
-import PromoSlider, { type Slide } from '@/components/PromoSlider'
+import Carousel from '@/components/Carousel'
+import HeroBannerSlide from '@/components/HeroBannerSlide'
+import PromoSlide, { type PromoSlideData } from '@/components/PromoSlide'
 import ProductCard from '@/components/ProductCard'
+import Container from '@/components/Container'
 import { PRODUCTOS } from '@/data/products'
-import instPanel from '@/assets/instPanel.png'
-import tablero from '@/assets/tablero.jpg'
 import almacen from '@/assets/almacen.jpg'
+import tablero from '@/assets/tablero.jpg'
 
-const SLIDES: Slide[] = [
-  {
-    kicker: 'Promoción · Paneles solares',
-    title: 'Los mejores paneles solares',
-    highlight: 'para tu proyecto',
-    desc: 'Alta calidad, garantía de fábrica y respaldo técnico local. Cotiza al 945 103 227.',
-    cta: { label: 'Ver catálogo técnico', to: '/catalogo?cat=Panel solar' },
-    bg: `url(${instPanel.src})`,
-  },
+const OTHER_SLIDES: PromoSlideData[] = [
   {
     kicker: 'Promoción · Almacenamiento',
     title: 'Baterías con hasta',
@@ -39,52 +33,65 @@ export default function Home() {
 
   return (
     <div>
-      <PromoSlider slides={SLIDES} />
+      <Carousel
+        slides={[
+          <HeroBannerSlide key="banner" />,
+          ...OTHER_SLIDES.map((s) => <PromoSlide key={s.kicker} slide={s} />),
+        ]}
+      />
 
-      <section className="px-4 sm:px-6 py-14">
-        <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
-          <h2 className="kicker text-ink/55 m-0">Productos destacados</h2>
-          <Link href="/catalogo" className="text-[11px] font-bold tracking-[.1em] uppercase hover:text-accent-dark">
-            Ver todo el catálogo →
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {destacados.map((p) => (
-            <ProductCard key={p.id} p={p} />
-          ))}
-        </div>
+      <section className="py-14">
+        <Container>
+          <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
+            <h2 className="kicker text-ink/55 m-0">Productos destacados</h2>
+            <Link href="/catalogo" className="text-[11px] font-bold tracking-[.1em] uppercase hover:text-accent-dark">
+              Ver todo el catálogo →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {destacados.map((p) => (
+              <ProductCard key={p.id} p={p} />
+            ))}
+          </div>
+        </Container>
       </section>
 
-      <section className="px-4 sm:px-6 py-10 bg-surface">
-        <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
-          <h2 className="kicker text-ink/55 m-0">Productos más vendidos</h2>
-          <span className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45">
-            Según pedidos de los últimos 12 meses
-          </span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {masVendidos.map((p) => (
-            <ProductCard key={p.id} p={p} />
-          ))}
-        </div>
+      <section className="py-10 bg-surface">
+        <Container>
+          <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
+            <h2 className="kicker text-ink/55 m-0">Productos más vendidos</h2>
+            <span className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45">
+              Según pedidos de los últimos 12 meses
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {masVendidos.map((p) => (
+              <ProductCard key={p.id} p={p} />
+            ))}
+          </div>
+        </Container>
       </section>
 
-      <section className="mx-4 sm:mx-6 my-14 bg-ink text-white p-8 sm:p-11 flex flex-wrap gap-6 items-center justify-between">
-        <div className="max-w-[520px]">
-          <h2 className="text-2xl sm:text-[28px] font-black uppercase leading-tight mb-3">
-            Explora el catálogo técnico completo
-          </h2>
-          <p className="text-sm leading-relaxed text-white/75 m-0">
-            Inversores, baterías, paneles y estructura organizados por solución: respaldo, autoconsumo,
-            off-grid/on-grid y monitoreo.
-          </p>
-        </div>
-        <Link
-          href="/catalogo"
-          className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
-        >
-          Ir al catálogo completo
-        </Link>
+      <section className="my-14">
+        <Container>
+          <div className="bg-ink text-white p-8 sm:p-11 flex flex-wrap gap-6 items-center justify-between">
+            <div className="max-w-[520px]">
+              <h2 className="text-2xl sm:text-[28px] font-black uppercase leading-tight mb-3">
+                Explora el catálogo técnico completo
+              </h2>
+              <p className="text-sm leading-relaxed text-white/75 m-0">
+                Inversores, baterías, paneles y estructura organizados por solución: respaldo, autoconsumo,
+                off-grid/on-grid y monitoreo.
+              </p>
+            </div>
+            <Link
+              href="/catalogo"
+              className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
+            >
+              Ir al catálogo completo
+            </Link>
+          </div>
+        </Container>
       </section>
     </div>
   )

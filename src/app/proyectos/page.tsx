@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Container from '@/components/Container'
 import tablero from '@/assets/tablero.jpg'
 import instEquipo from '@/assets/instEquipo.jpg'
 import instPanel from '@/assets/instPanel.png'
@@ -58,7 +59,7 @@ const PROYECTOS = [
 export default function Proyectos() {
   return (
     <div>
-      <div className="px-4 sm:px-6 pt-6">
+      <Container className="pt-6">
         <div className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45 mb-4">
           Inicio / <span className="text-ink">Proyectos</span>
         </div>
@@ -74,56 +75,64 @@ export default function Proyectos() {
             Arequipa · Moquegua · Cusco
           </span>
         </div>
-      </div>
+      </Container>
 
-      <div className="border-t border-b border-ink/[.14] grid grid-cols-2 sm:grid-cols-4">
-        {CIFRAS.map((c) => (
-          <div key={c.etiqueta} className="px-6 py-6 border-r border-ink/10 last:border-r-0">
-            <div className="text-[28px] font-black leading-none">{c.valor}</div>
-            <div className="text-[11px] font-medium tracking-[.12em] uppercase text-ink/55 mt-2">
-              {c.etiqueta}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="px-4 sm:px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {PROYECTOS.map((p) => (
-          <div key={p.nombre} className="border border-ink/[.14] bg-white">
-            <div
-              className="h-[190px] bg-cover bg-center"
-              style={{ backgroundImage: `url(${p.img.src})` }}
-              role="img"
-              aria-label={p.nombre}
-            />
-            <div className="p-[18px]">
-              <div className="text-[11px] font-medium tracking-[.12em] uppercase text-accent-dark mb-2">
-                {p.sector}
+      <div className="border-t border-b border-ink/[.14]">
+        <Container>
+          <div className="grid grid-cols-2 sm:grid-cols-4">
+            {CIFRAS.map((c) => (
+              <div key={c.etiqueta} className="px-6 py-6 border-r border-ink/10 last:border-r-0">
+                <div className="text-[28px] font-black leading-none">{c.valor}</div>
+                <div className="text-[11px] font-medium tracking-[.12em] uppercase text-ink/55 mt-2">
+                  {c.etiqueta}
+                </div>
               </div>
-              <div className="text-base font-black uppercase leading-tight mb-2.5">{p.nombre}</div>
-              <div className="text-xs text-ink/60 leading-relaxed">{p.detalle}</div>
-            </div>
+            ))}
           </div>
-        ))}
+        </Container>
       </div>
 
-      <div className="mx-4 sm:mx-6 mb-14 bg-ink text-white p-8 sm:p-11 flex flex-wrap gap-6 items-center justify-between">
-        <div className="max-w-[520px]">
-          <h2 className="text-2xl sm:text-[28px] font-black uppercase leading-tight mb-3">
-            ¿Proyecto crítico de continuidad energética?
-          </h2>
-          <p className="text-sm leading-relaxed text-white/75 m-0">
-            Envíanos consumos, planos o el listado de equipos. Respondemos con dimensionamiento y cotización en
-            24 horas hábiles.
-          </p>
+      <Container className="py-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {PROYECTOS.map((p) => (
+            <div key={p.nombre} className="border border-ink/[.14] bg-white">
+              <div
+                className="h-[190px] bg-cover bg-center"
+                style={{ backgroundImage: `url(${p.img.src})` }}
+                role="img"
+                aria-label={p.nombre}
+              />
+              <div className="p-[18px]">
+                <div className="text-[11px] font-medium tracking-[.12em] uppercase text-accent-dark mb-2">
+                  {p.sector}
+                </div>
+                <div className="text-base font-black uppercase leading-tight mb-2.5">{p.nombre}</div>
+                <div className="text-xs text-ink/60 leading-relaxed">{p.detalle}</div>
+              </div>
+            </div>
+          ))}
         </div>
-        <Link
-          href="/cotizacion"
-          className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
-        >
-          Solicitar cotización técnica
-        </Link>
-      </div>
+      </Container>
+
+      <Container className="mb-14">
+        <div className="bg-ink text-white p-8 sm:p-11 flex flex-wrap gap-6 items-center justify-between">
+          <div className="max-w-[520px]">
+            <h2 className="text-2xl sm:text-[28px] font-black uppercase leading-tight mb-3">
+              ¿Proyecto crítico de continuidad energética?
+            </h2>
+            <p className="text-sm leading-relaxed text-white/75 m-0">
+              Envíanos consumos, planos o el listado de equipos. Respondemos con dimensionamiento y cotización
+              en 24 horas hábiles.
+            </p>
+          </div>
+          <Link
+            href="/cotizacion"
+            className="border-0 bg-accent text-ink font-heading text-xs font-black tracking-[.1em] uppercase px-7 py-4 hover:bg-accent-2 transition-colors"
+          >
+            Solicitar cotización técnica
+          </Link>
+        </div>
+      </Container>
     </div>
   )
 }

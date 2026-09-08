@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import ProductCard from '@/components/ProductCard'
+import Container from '@/components/Container'
 import { CATEGORIAS_COMPONENTE, MARCAS, PRODUCTOS, SOLUCIONES, type SolucionId } from '@/data/products'
 
 const APLICACIONES = [
@@ -56,7 +57,7 @@ export default function CatalogoClient() {
   }, [q, solucion, categorias, marcas, aplicaciones])
 
   return (
-    <div className="px-4 sm:px-6 pt-6">
+    <Container className="pt-6">
       <div className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45 mb-4">
         Inicio / Tienda / <span className="text-ink">Todos los productos</span>
       </div>
@@ -144,7 +145,7 @@ export default function CatalogoClient() {
           ¿Necesitas un dimensionamiento a medida? Solicita cotización técnica →
         </Link>
       </div>
-    </div>
+    </Container>
   )
 }
 
