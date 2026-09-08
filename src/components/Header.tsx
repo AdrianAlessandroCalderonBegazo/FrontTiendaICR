@@ -1,0 +1,97 @@
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import logo from '../assets/logo.png'
+import { useQuote } from '../context/QuoteContext'
+import { SOLUCIONES } from '../data/products'
+
+const NAV_LINKS = [
+  { to: '/', label: 'Inicio', end: true },
+  { to: '/catalogo', label: 'Tienda' },
+  { to: '/soluciones', label: 'Soluciones' },
+  { to: '/proyectos', label: 'Proyectos' },
+]
+
+export default function Header() {
+  const { count } = useQuote()
+  const navigate = useNavigate()
+  const [query, setQuery] = useState('')
+
+  const onSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    navigate(query.trim() ? `/catalogo?q=${encodeURIComponent(query.trim())}` : '/catalogo')
+  }
+
+  return (
+    <header className="sticky top-0 z-40 bg-white shadow-[0_1px_0_rgba(0,0,76,.08)]">
+      {/* utility bar */}
+      <div className="bg-ink text-white/70 text-[11px] font-medium tracking-[.1em] uppercase px-4 sm:px-6 py-2 flex flex-wrap gap-4 justify-between items-center">
+        <span>Arequipa, Perú · Ingeniería energética para proyectos industriales y residenciales</span>
+        <div className="flex gap-4 sm:gap-[18px] items-center">
+          <span className="hidden sm:inline">Soporte técnico</span>
+          <span className="hidden sm:inline">Descargas</span>
+          <span className="text-accent">Iniciar sesión</span>
+        </div>
+      </div>
+
+      {/* header */}
+      <div className="border-b border-ink/10 px-4 sm:px-6 py-4 flex flex-wrap gap-5 items-center justify-between">
+        <NavLink to="/" className="flex items-center shrink-0">
+          <img src={logo} alt="ICR Inversiones" className="h-7 block" />
+        </NavLink>
+
+        <nav className="flex flex-wrap gap-4 sm:gap-[22px] text-xs font-medium tracking-[.08em] uppercase order-3 w-full sm:order-none sm:w-auto">
+          {NAV_LINKS.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              end={l.end}
+              className={({ isActive }) =>
+                isActive ? 'text-accent' : 'text-ink hover:text-accent transition-colors'
+              }
+            >
+              {l.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="flex gap-2.5 items-center">
+          <form
+            onSubmit={onSearch}
+            className="hidden md:flex items-center gap-2 border border-ink/20 px-3 py-2 min-w-[200px]"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00004c" strokeWidth="1.5">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Referencia, marca o kW"
+              className="text-xs text-ink placeholder:text-ink/40 outline-none bg-transparent w-full"
+            />
+          </form>
+          <NavLink
+            to="/cotizacion"
+            className="border-0 bg-ink text-white font-heading text-[11px] font-bold tracking-[.1em] uppercase px-4 py-[11px] flex gap-2 items-center hover:bg-accent-dark transition-colors"
+          >
+            Cotización
+            <span className="bg-accent text-ink font-black px-1.5 min-w-[16px] text-center">{count}</span>
+          </NavLink>
+        </div>
+      </div>
+
+      {/* solution bar */}
+      <div className="bg-surface border-b border-ink/10 px-4 sm:px-6 flex flex-wrap overflow-x-auto">
+        {SOLUCIONES.map((s) => (
+          <NavLink
+            key={s.id}
+            to={`/catalogo?solucion=${s.id}`}
+            className="text-[11px] font-medium tracking-[.1em] uppercase text-ink py-[13px] pr-0 mr-[18px] border-b-2 border-transparent hover:border-accent whitespace-nowrap transition-colors"
+          >
+            {s.nombre}
+          </NavLink>
+        ))}
+      </div>
+    </header>
+  )
+}
