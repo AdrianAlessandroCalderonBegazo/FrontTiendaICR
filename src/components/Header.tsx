@@ -46,7 +46,6 @@ export default function Header() {
             >
               Soporte técnico
             </a>
-            <span className="hidden sm:inline">Descargas</span>
             <Link href={user ? '/perfil' : '/login'} className="text-accent hover:text-accent-2 transition-colors">
               {user ? user.nombre.split(' ')[0] : 'Iniciar sesión'}
             </Link>
@@ -105,12 +104,12 @@ export default function Header() {
 
       {/* solution bar */}
       <div className="bg-surface border-b border-ink/10">
-        <Container className="flex flex-wrap overflow-x-auto">
+        <Container className="flex flex-wrap justify-center gap-x-8 overflow-x-auto">
           {SOLUCIONES.map((s) => (
             <Link
               key={s.id}
               href={`/catalogo?solucion=${s.id}`}
-              className="text-[11px] font-medium tracking-[.1em] uppercase text-ink py-[13px] pr-0 mr-[18px] border-b-2 border-transparent hover:border-accent whitespace-nowrap transition-colors"
+              className="text-[11px] font-medium tracking-[.1em] uppercase text-ink py-[13px] border-b-2 border-transparent hover:border-accent whitespace-nowrap transition-colors"
             >
               {s.nombre}
             </Link>
