@@ -28,8 +28,8 @@ const OTHER_SLIDES: PromoSlideData[] = [
 ]
 
 export default function Home() {
-  const destacados = PRODUCTOS.filter((p) => p.destacado).slice(0, 4)
-  const masVendidos = [...PRODUCTOS].sort((a, b) => (b.vendidos ?? 0) - (a.vendidos ?? 0)).slice(0, 4)
+  const destacados = PRODUCTOS.filter((p) => p.destacado).slice(0, 3)
+  const masVendidos = [...PRODUCTOS].sort((a, b) => (b.vendidos ?? 0) - (a.vendidos ?? 0)).slice(0, 3)
 
   return (
     <div>
@@ -40,33 +40,50 @@ export default function Home() {
         ]}
       />
 
-      <section className="py-14">
+      <section className="py-16">
         <Container>
-          <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
-            <h2 className="kicker text-ink/55 m-0">Productos destacados</h2>
-            <Link href="/catalogo" className="text-[11px] font-bold tracking-[.1em] uppercase hover:text-accent-dark">
+          <div className="flex flex-wrap gap-4 items-end justify-between mb-8">
+            <div>
+              <div className="text-[11px] font-bold tracking-[.2em] uppercase text-accent-dark mb-1.5">
+                Selección ICR
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black uppercase text-ink m-0 leading-none">
+                Productos destacados
+              </h2>
+            </div>
+            <Link
+              href="/catalogo"
+              className="text-xs font-bold tracking-[.1em] uppercase text-accent-dark hover:text-ink transition-colors"
+            >
               Ver todo el catálogo →
             </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {destacados.map((p) => (
-              <ProductCard key={p.id} p={p} />
+              <ProductCard key={p.id} p={p} size="large" />
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="py-10 bg-surface">
+      <section className="py-16 bg-surface">
         <Container>
-          <div className="flex flex-wrap gap-4 items-baseline justify-between mb-6">
-            <h2 className="kicker text-ink/55 m-0">Productos más vendidos</h2>
-            <span className="text-[11px] font-medium tracking-[.1em] uppercase text-ink/45">
+          <div className="flex flex-wrap gap-4 items-end justify-between mb-8">
+            <div>
+              <div className="text-[11px] font-bold tracking-[.2em] uppercase text-accent-dark mb-1.5">
+                Lo que más piden
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-black uppercase text-ink m-0 leading-none">
+                Productos más vendidos
+              </h2>
+            </div>
+            <span className="text-xs font-medium tracking-[.1em] uppercase text-ink/45">
               Según pedidos de los últimos 12 meses
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {masVendidos.map((p) => (
-              <ProductCard key={p.id} p={p} />
+              <ProductCard key={p.id} p={p} size="large" />
             ))}
           </div>
         </Container>
