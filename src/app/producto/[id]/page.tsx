@@ -15,7 +15,6 @@ const GARANTIAS = [
 
 const TABS = [
   { id: 'ficha', label: 'Ficha técnica' },
-  { id: 'descargas', label: 'Descargas' },
   { id: 'envio', label: 'Envío y soporte' },
 ] as const
 
@@ -31,12 +30,6 @@ export default function Producto() {
 
   const tabData: Record<TabId, [string, string][]> = {
     ficha: actual.specs,
-    descargas: [
-      ['Datasheet PDF', '1,8 MB'],
-      ['Manual de instalación', '4,2 MB'],
-      ['Certificado de conformidad NTP', '620 KB'],
-      ['Declaración de garantía', '310 KB'],
-    ],
     envio: [
       ['Despacho', '48 h hábiles desde Arequipa'],
       ['Cobertura', 'Arequipa y sur del Perú'],
